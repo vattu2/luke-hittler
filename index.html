@@ -1,0 +1,871 @@
+```html
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Luke Hittler — Syntytarina</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =========================
+           PERUSASETUKSET
+        ========================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+
+            font-family: "Inter", sans-serif;
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.68),
+                    rgba(5, 7, 5, 0.82)
+                ),
+                url("https://images.sanoma-sndp.fi/536cef9e39cfc2edfc9678c0a248cc36.jpg/normal/658.avif");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           TAUSTAN VALOEFEKTI
+        ========================= */
+
+        body::before {
+            content: "";
+
+            position: fixed;
+            inset: 0;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    rgba(215, 170, 70, 0.15),
+                    transparent 45%
+                );
+
+            pointer-events: none;
+
+            z-index: -1;
+        }
+
+
+        /* =========================
+           NAVIGAATIO
+        ========================= */
+
+        nav {
+            position: fixed;
+
+            top: 0;
+            left: 0;
+
+            width: 100%;
+
+            padding: 20px 55px;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            background: rgba(0, 0, 0, 0.48);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+
+            border-bottom: 1px solid rgba(255,255,255,0.12);
+
+            z-index: 100;
+        }
+
+
+        .logo {
+            font-family: "Cinzel", serif;
+
+            font-size: 21px;
+            font-weight: 800;
+
+            letter-spacing: 4px;
+
+            color: #f1d58a;
+
+            text-shadow:
+                0 0 20px rgba(241, 213, 138, 0.25);
+        }
+
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+
+
+        .nav-links a {
+            position: relative;
+
+            color: rgba(255,255,255,0.85);
+
+            text-decoration: none;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+
+        .nav-links a::after {
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+            bottom: -7px;
+
+            width: 0;
+            height: 1px;
+
+            background: #f1d58a;
+
+            transition: 0.3s ease;
+        }
+
+
+        .nav-links a:hover {
+            color: #f1d58a;
+        }
+
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+
+            padding: 150px 20px 100px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+        }
+
+
+        .hero::before {
+            content: "✦";
+
+            position: absolute;
+
+            top: 110px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 18px;
+
+            color: #f1d58a;
+
+            opacity: 0.7;
+
+            text-shadow:
+                0 0 20px rgba(241,213,138,0.8);
+        }
+
+
+        /* =========================
+           PÄÄKORTTI
+        ========================= */
+
+        .story-card {
+            width: 100%;
+            max-width: 950px;
+
+            padding: 75px 80px;
+
+            position: relative;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(15, 17, 14, 0.82),
+                    rgba(8, 10, 8, 0.72)
+                );
+
+            border: 1px solid rgba(241,213,138,0.25);
+
+            border-radius: 30px;
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            box-shadow:
+                0 40px 100px rgba(0,0,0,0.65),
+                inset 0 1px 0 rgba(255,255,255,0.08);
+
+            animation: ilmestyminen 1.2s ease forwards;
+
+            overflow: hidden;
+        }
+
+
+        .story-card::before {
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 60%;
+            height: 1px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #f1d58a,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 25px rgba(241,213,138,0.8);
+        }
+
+
+        .story-card::after {
+            content: "";
+
+            position: absolute;
+
+            width: 300px;
+            height: 300px;
+
+            top: -150px;
+            right: -150px;
+
+            border-radius: 50%;
+
+            background: rgba(241,213,138,0.06);
+
+            filter: blur(50px);
+
+            pointer-events: none;
+        }
+
+
+        /* =========================
+           PIENI OTSIKKO
+        ========================= */
+
+        .eyebrow {
+            text-align: center;
+
+            font-size: 12px;
+
+            font-weight: 700;
+
+            letter-spacing: 6px;
+
+            text-transform: uppercase;
+
+            color: #d6c28c;
+
+            margin-bottom: 22px;
+
+            opacity: 0.9;
+        }
+
+
+        /* =========================
+           PÄÄOTSIKKO
+        ========================= */
+
+        h1 {
+            font-family: "Cinzel", serif;
+
+            text-align: center;
+
+            font-size: clamp(42px, 7vw, 78px);
+
+            line-height: 1.05;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 28px;
+
+            color: #fff;
+
+            text-shadow:
+                0 5px 35px rgba(0,0,0,0.8);
+        }
+
+
+        h1 span {
+            display: block;
+
+            color: #f1d58a;
+
+            font-size: 0.42em;
+
+            letter-spacing: 9px;
+
+            margin-top: 18px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================
+           KULTAINEN VIIVA
+        ========================= */
+
+        .viiva {
+            width: 150px;
+            height: 2px;
+
+            margin: 0 auto 55px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    #f1d58a,
+                    transparent
+                );
+
+            box-shadow:
+                0 0 18px rgba(241,213,138,0.65);
+
+            position: relative;
+        }
+
+
+        .viiva::after {
+            content: "◆";
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0.55);
+
+            color: #f1d58a;
+
+            background: #11130f;
+
+            padding: 0 10px;
+        }
+
+
+        /* =========================
+           TARINATEKSTI
+        ========================= */
+
+        .story {
+            max-width: 760px;
+
+            margin: auto;
+
+            font-size: 18px;
+
+            line-height: 2;
+
+            color: rgba(255,255,255,0.88);
+        }
+
+
+        .story p {
+            margin-bottom: 28px;
+
+            text-align: left;
+        }
+
+
+        .story p:first-child::first-letter {
+            font-family: "Cinzel", serif;
+
+            font-size: 70px;
+
+            float: left;
+
+            line-height: 0.8;
+
+            padding-right: 12px;
+
+            padding-top: 10px;
+
+            color: #f1d58a;
+        }
+
+
+        /* =========================
+           NIMI
+        ========================= */
+
+        .nimi {
+            font-family: "Cinzel", serif;
+
+            font-size: clamp(28px, 5vw, 44px);
+
+            font-weight: 800;
+
+            letter-spacing: 5px;
+
+            text-align: center;
+
+            margin: 55px 0;
+
+            padding: 30px 15px;
+
+            color: #f1d58a;
+
+            border-top: 1px solid rgba(241,213,138,0.2);
+            border-bottom: 1px solid rgba(241,213,138,0.2);
+
+            text-shadow:
+                0 0 30px rgba(241,213,138,0.25);
+        }
+
+
+        .korostus {
+            color: #fff;
+
+            font-weight: 700;
+        }
+
+
+        /* =========================
+           LOPPU
+        ========================= */
+
+        .loppu {
+            font-family: "Cinzel", serif;
+
+            font-size: 25px;
+
+            font-weight: 700;
+
+            text-align: center;
+
+            color: #f1d58a;
+
+            margin-top: 55px;
+
+            padding-top: 35px;
+
+            border-top: 1px solid rgba(255,255,255,0.15);
+
+            letter-spacing: 1px;
+
+            text-shadow:
+                0 0 20px rgba(241,213,138,0.2);
+        }
+
+
+        /* =========================
+           NAPPI
+        ========================= */
+
+        .button-container {
+            text-align: center;
+
+            margin-top: 50px;
+        }
+
+
+        .button {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 16px 30px;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #f4e2a8,
+                    #d1aa55
+                );
+
+            color: #171811;
+
+            text-decoration: none;
+
+            font-weight: 800;
+
+            font-size: 14px;
+
+            letter-spacing: 0.5px;
+
+            transition: 0.35s ease;
+
+            box-shadow:
+                0 12px 35px rgba(0,0,0,0.35),
+                0 0 25px rgba(241,213,138,0.12);
+        }
+
+
+        .button:hover {
+            transform:
+                translateY(-5px)
+                scale(1.04);
+
+            box-shadow:
+                0 20px 45px rgba(0,0,0,0.45),
+                0 0 35px rgba(241,213,138,0.3);
+        }
+
+
+        /* =========================
+           ALAREUNAN
+        ========================= */
+
+        .legend {
+            margin-top: 50px;
+
+            text-align: center;
+
+            font-size: 11px;
+
+            letter-spacing: 4px;
+
+            text-transform: uppercase;
+
+            color: rgba(255,255,255,0.35);
+        }
+
+
+        /* =========================
+           ANIMAATIO
+        ========================= */
+
+        @keyframes ilmestyminen {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(45px)
+                    scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =========================
+           MOBIILI
+        ========================= */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 16px 20px;
+            }
+
+
+            .logo {
+                font-size: 15px;
+
+                letter-spacing: 2px;
+            }
+
+
+            .nav-links {
+                gap: 15px;
+            }
+
+
+            .nav-links a {
+                font-size: 11px;
+            }
+
+
+            .hero {
+                padding:
+                    115px 14px 50px;
+            }
+
+
+            .story-card {
+                padding: 45px 24px;
+
+                border-radius: 22px;
+            }
+
+
+            .eyebrow {
+                font-size: 9px;
+
+                letter-spacing: 4px;
+            }
+
+
+            h1 {
+                font-size: 40px;
+
+                letter-spacing: 1px;
+            }
+
+
+            h1 span {
+                letter-spacing: 5px;
+            }
+
+
+            .story {
+                font-size: 16px;
+
+                line-height: 1.85;
+            }
+
+
+            .story p:first-child::first-letter {
+                font-size: 55px;
+            }
+
+
+            .nimi {
+                font-size: 25px;
+
+                letter-spacing: 2px;
+
+                margin: 40px 0;
+            }
+
+
+            .loppu {
+                font-size: 20px;
+            }
+
+
+            .button {
+                padding: 14px 22px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         NAVIGAATIO
+    ========================== -->
+
+    <nav>
+
+        <div class="logo">
+            LUKE HITTLER
+        </div>
+
+
+        <div class="nav-links">
+
+            <a href="#tarina">
+                Tarina
+            </a>
+
+
+            <!-- YOUTUBE -->
+
+            <a
+                href="https://youtu.be/dQw4w9WgXcQ?si=mrrc1UwaZ5KQYW_6"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Video ▶
+            </a>
+
+
+            <!-- YLÖJÄRVEN LUKIO -->
+
+            <a
+                href="https://ylojarvenlukio.fi/"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Ylöjärven lukio
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+         PÄÄSISÄLTÖ
+    ========================== -->
+
+    <main class="hero" id="tarina">
+
+        <article class="story-card">
+
+
+            <div class="eyebrow">
+                LEGENDAN ALKU
+            </div>
+
+
+            <h1>
+                Luke Hittlerin
+
+                <span>
+                    Syntytarina
+                </span>
+            </h1>
+
+
+            <div class="viiva"></div>
+
+
+            <div class="story">
+
+
+                <p>
+                    Kaikki alkoi Ylöjärven lukio Valon käytävillä,
+                    kun joukko opiskelijoita päätyi tekemään jotain
+                    yhdessä. Aluksi kyseessä oli vain tavallinen
+                    porukka ilman nimeä tai sen suurempaa suunnitelmaa.
+                </p>
+
+
+                <p>
+                    Sitten joku heitti ilmoille nimen:
+                </p>
+
+
+                <div class="nimi">
+                    Luke Hittler.
+                </div>
+
+
+                <p>
+                    Nimi herätti hämmennystä, naurua ja lopulta
+                    hyväksynnän. Siitä hetkestä lähtien porukka
+                    tunnettiin nimellä
+                    <span class="korostus">
+                        Luke Hittler
+                    </span>.
+                </p>
+
+
+                <p>
+                    Joukkue kasvoi nopeasti omaksi yhteisökseen.
+                    Mukaan tuli huumoria, kilpailuhenkeä ja ennen
+                    kaikkea halua tehdä asioita yhdessä.
+                </p>
+
+
+                <p>
+                    Luke Hittler ei syntynyt täydellisen suunnitelman
+                    seurauksena.
+                </p>
+
+
+                <p>
+                    Se syntyi sattumasta.
+                </p>
+
+
+                <p>
+                    Ja ehkä juuri siksi siitä tuli legenda.
+                </p>
+
+
+                <div class="loppu">
+                    Luke Hittler — kaikki alkoi yhdestä nimestä.
+                </div>
+
+
+            </div>
+
+
+            <!-- =========================
+                 LUKION LINKKI
+            ========================== -->
+
+            <div class="button-container">
+
+                <a
+                    class="button"
+                    href="https://ylojarvenlukio.fi/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    Ylöjärven lukion sivuille
+
+                    <span>
+                        →
+                    </span>
+                </a>
+
+            </div>
+
+
+            <div class="legend">
+                Yksi nimi · Yksi tarina · Yksi legenda
+            </div>
+
+
+        </article>
+
+    </main>
+
+
+</body>
+</html>
+```
